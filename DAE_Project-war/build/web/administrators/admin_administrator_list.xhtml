@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Software Management</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="#">Software Management</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Users
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                   <h:link class="dropdown-item" outcome="admin_administrator_list" value="Administrators" />
+                    <h:link class="dropdown-item" value="Clients" outcome="admin_client_list" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        <div class="container" style="margin-top: 75px">
+            <div class="row">
+                <div class="col">
+                    <div class="card border-light">
+                        <div class="card-body">
+                          <h2 class="card-title">Administrators</h2>
+                          <p class="card-text">Administrators informations</p>
+                          <h:link value="Create" class="btn btn-success float-right" outcome="admin_administrator_create" />
+                          <br/>
+                          <br/>
+                          <h:form>
+                              <h:dataTable var="admin" value="#{am.allAdministratorsREST}" class="table table-hover">
+                              <h:column>
+                                    <f:facet name="header">Username</f:facet>
+                                    <h:outputText value="#{admin.username}"></h:outputText>
+                                </h:column>
+                              <h:column>
+                                    <f:facet name="header">Name</f:facet>
+                                    <h:outputText value="#{admin.name}"></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Email</f:facet>
+                                    <h:outputText value="#{admin.email}"></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Role</f:facet>
+                                    <h:outputText value="#{admin.role}"></h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Action</f:facet>
+                                    <h:commandLink value="Details" action="admin_administrator_details?faces-redirect=true" class="btn btn-primary btn-sm">
+                                        <f:setPropertyActionListener target="#{am.currentAdministrator}" value="#{admin}" />
+                                    </h:commandLink>
+                                    &nbsp;
+                                    <h:commandLink class="btn btn-warning btn-sm" value="Edit" action="admin_administrator_update?faces-redirect=true">
+                                        <f:setPropertyActionListener target="#{am.currentAdministrator}" value="#{admin}" />
+                                    </h:commandLink>
+                                    &nbsp;
+                                    <h:commandLink 
+                                        styleClass="btn btn-danger btn-sm"
+                                        id = "removeButton" 
+                                        value = "Remove"
+                                        action= "#{am.deleteAdministratorsREST()}" >
+                                        <f:setPropertyActionListener target="#{am.currentAdministrator}" value="#{admin}" />
+                                    </h:commandLink>                                
+                                </h:column>
+                            </h:dataTable>
+                          </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </h:body>
+</html>
+
